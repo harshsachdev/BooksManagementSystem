@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row">
+        <app-new-book-modal (refreshTable)="fillDataSourceForDataTable()" (showSnackBar)="openSnackBar('New Book Created Successfully')"></app-new-book-modal>
+    </div>
+    <div class="row mt-3" style="padding:14px;">
+
+        <div class="row">
+            <div class="col-md-2 offset-md-9">
+                <input type="text" class="form-control" name="search" id="search" placeholder="Search..." #searchBox>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary" [disabled]="isLoadingResults" (click)="performSearch(searchBox.value)">Search</button>
+            </div>
+        </div>
+        
+
+        <div class="example-container mat-elevation-z8 mt-3">
+            <div class="example-loading-shade"
+                 *ngIf="isLoadingResults || isRateLimitReached">
+              <mat-spinner *ngIf="isLoadingResults"></mat-spinner>  
+            </div>
+          
+            <table mat-table [dataSource]="data" class="example-table centered responsive-table"
+                    matSort matSortActive="id" matSortDirection="desc">
+                <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>ID</th>
+                <td mat-cell *matCellDef="let row">{{row.id}}</td>
+                </ng-container>
+        
+                <ng-container matColumnDef="book_title">
+                <th mat-header-cell *matHeaderCellDef>Book Title</th>
+                <td mat-cell *matCellDef="let row">{{row.book_title}}</td>
+                </ng-container>
+        
+                <ng-container matColumnDef="published_year">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Published Year</th>
+                <td mat-cell *matCellDef="let row">{{row.published_year | date: 'd/M/y'}}</td>
+                </ng-container>
+        
+                <ng-container matColumnDef="book_price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                    Price
+                </th>
+                <td mat-cell *matCellDef="let row">{{row.book_price | currency:'USD':'symbol'}}</td>
+                </ng-container>
+
+                <!-- Star Column -->
+                <ng-container matColumnDef="edit_book" stickyEnd>
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="openModalWithComponent(row.id, row)">
+                            <mat-icon [ngStyle]="{'color':'#2c46a5'}" aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+                            <span>Edit</span>
+                            </button>
+                            <button mat-menu-item (click)="deleteBook(row)">
+                                <mat-icon [ngStyle]="{'color':'#bb3131'}" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+                            <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+              <mat-paginator [length]="resultsLength" [pageSize]="2"></mat-paginator>
+        </div>
+    </div>
+    <!-- <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Create modal with component</button> -->
+</div>

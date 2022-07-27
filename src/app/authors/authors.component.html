@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row mt-3">
+        <div class="create-new-author d-flex">
+            <div>
+                <mat-form-field appearance="standard">
+                    <mat-label>Add new Author</mat-label>
+                    <input matInput placeholder="Enter Author Name" name="author_name" #newAuthor>
+                </mat-form-field>
+            </div>
+            <div class="ms-2"><button mat-flat-button color="primary" (click)="addAuthor(newAuthor.value)">Add <i class="fa fa-plus" aria-hidden="true"></i></button></div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-9">
+            <mat-accordion class="example-headers-align" multi #outeraccordion>
+                <mat-expansion-panel class="custom-accordion-panel" *ngFor="let author of authors">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <p><b>{{author.name}}</b> &nbsp;<span><i>(click to edit)</i></span></p>
+                      </mat-panel-title>
+                      <!-- <mat-panel-description>
+                        Inform the date you wish to travel
+                      </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                    <div class="arrange-items-in-accordion">
+                        <div>
+                            <mat-form-field appearance="standard">
+                                <mat-label>Edit Author</mat-label>
+                                <input matInput placeholder="Enter Author Name" [value]="author.name" id="author_name" id="authortextbox{{author.id}}">
+                            </mat-form-field>
+                        </div>
+                        <div class="ms-2"><button mat-flat-button (click)="Clicked($event, outeraccordion.querySelector('#authortextbox' + author.id), author.id)" color="primary">Update</button></div>
+                    </div>
+                  </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</div>

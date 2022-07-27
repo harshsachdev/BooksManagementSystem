@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row mt-3">
+        
+        <!-- <div class="col-md-4">
+            <div class="box_inner_content">
+                <p  class="dashboard-icons mt-3"><i class="fa-solid fa-user"></i></p>
+                <h1>{{authors_count | async}}</h1>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box_inner_content">
+                <p class="dashboard-icons mt-3"><i class="fa-solid fa-book"></i></p>
+                <h1>{{books_count | async}}</h1>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box_inner_content">
+                <p class="dashboard-icons mt-3"><i class="fa-solid fa-clock"></i></p>
+                <h1>{{ rxTime | date: 'hh:mm:ss a' }}</h1>
+            </div>    
+        </div> -->
+        <div class="col-md-4">
+            <app-box-content>
+                <p  class="dashboard-icons mt-3"><i class="fa-solid fa-user"></i></p>
+                <h1>{{authors_count | async}}</h1>
+            </app-box-content> 
+        </div>
+        <div class="col-md-4">
+            <app-box-content>
+                <p class="dashboard-icons mt-3"><i class="fa-solid fa-book"></i></p>
+                <h1>{{books_count | async}}</h1>
+            </app-box-content> 
+        </div>
+        <div class="col-md-4">
+            <app-box-content>
+                <p class="dashboard-icons mt-3"><i class="fa-solid fa-clock"></i></p>
+                <h1>{{ rxTime | date: 'hh:mm:ss a' }}</h1>
+            </app-box-content>    
+        </div>
+        
+    </div>
+</div>
